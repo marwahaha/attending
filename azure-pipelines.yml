@@ -28,5 +28,11 @@ steps:
 
 - script: |
     pip install pytest
-    python -m pytest -v
+    python -m pytest -v --cov=attending --cov-report=xml --cov-report=html
   displayName: 'Pytest'
+
+- task: PublishCodeCoverageResults@1
+  inputs:
+    codeCoverageTool: Cobertura
+    summaryFileLocation: '$(System.DefaultWorkingDirectory)/**/coverage.xml'
+    reportDirectory: '$(System.DefaultWorkingDirectory)/**/htmlcov'
